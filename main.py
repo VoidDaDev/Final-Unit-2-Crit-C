@@ -30,38 +30,34 @@ def title():
 def login_menu():
     title()
     while True:
-        try:
-            user_name = str(input(Fore.GREEN + "Username: "))
+        user_name = input(Fore.GREEN + "Username: ")
+        if user_name.isalpha():
             break
-        except ValueError:
+        else:
             print(Back.RED + "Only input letters")
     while True:
-        try:
-            pass_word = str(input(Fore.GREEN + "Password: "))
+        pass_word = input(Fore.GREEN + "Password: ")
+        if pass_word.isalpha():
             break
-        except ValueError:
+        else:
             print(Back.RED + "Only input letters")
 
     while user_name != username or pass_word != password:
-        print(Style.RESET_ALL)
         print(Fore.RED + "Wrong Login Credentials.")
-        print(Style.RESET_ALL)
         user_name = input(Fore.GREEN + "Username: ")
         pass_word = input(Fore.GREEN + "Password: ")
     os.system("clear")
-    print(Style.RESET_ALL)
     main_menu()
 
 # Function created to check if user input is only containing positive integers
 def checkint(question):
     while True:
         try:
-            ans = int(input(question))
-            if ans >= 0:
-                return ans
+            return int(input(question))
         except ValueError:
-            print(Fore.RED + "Only input positive numbers")
+            print(Fore.RED + "Only input positive numbers.")
             print(Style.RESET_ALL)
+
 
 
 # Main menu function created for the user to be able to select between options 1, 2 or 3.
@@ -72,19 +68,23 @@ def main_menu():
         print("1 - Test Assessment")
         print("2 - MYP Assessment")
         print("3 - Exit")
-        user_choice = checkint(Fore.CYAN + "\n > ")
-        if user_choice == int(1):
-            os.system("clear")
-            print(Style.RESET_ALL)
-            test_assessment()
-        elif user_choice == int(2):
-            os.system("clear")
-            print(Style.RESET_ALL)
-            myp_assessment()
-        elif user_choice == int(3):
-            print("Goodbye!")
-            os.system("clear")
-            break
+        user_choice = input(Fore.CYAN + "\n > ")
+        if user_choice.isdigit():
+            user_choice = int(user_choice)
+            if user_choice in [1, 2, 3]:
+                if user_choice == 1:
+                    test_assessment()
+                elif user_choice == 2:
+                    myp_assessment()
+                else:
+                    print("Goodbye!")
+                    os.system("clear")
+                    break
+            else:
+                print("Invalid Selection.")
+                input("Press [ENTER] to continue")
+                os.system("clear")
+                print(Style.RESET_ALL)
         else:
             print("Invalid Selection.")
             input("Press [ENTER] to continue")
@@ -94,43 +94,35 @@ def main_menu():
 
 # Function created in order to receive the final grade for a test assessment
 def test_assessment():
-        title()
-        # loop created in order to verify if the input of the users is corresponding to a string
-        while True:
-            try:
-                stud_name = str(input("Student Name: "))
-                break
-            except ValueError:
-                print("Only input letters")
-                #At line 106 we can see the usage of the function checkint
-        max_score = checkint("Maximum Test Score: ")
-        stud_score = checkint("Student Score: ")
-        while stud_score > max_score:
-            print("The student score cannot be above the maximum score.")
-            max_score = checkint("Maximum Test Score: ")
-            stud_score = checkint("Student Score: ")
-        test_result = round((stud_score / max_score) * 100, 1)
-        print("Final Percentage of " + stud_name + ": " + str(test_result) + "%")
-        if test_result >= 90:
-            print("Final Test Grade: 8")
-        elif test_result >= 80:
-            print("Final Test Grade 7")
-        elif test_result >= 70:
-            print("Final Test Grade: 6")
-        elif test_result >= 60:
-            print("Final Test Grade: 5")
-        elif test_result >= 50:
-            print("Final Test Grade: 4")
-        elif test_result >= 40:
-            print("Final Test Grade: 3")
-        elif test_result >= 30:
-            print("Final Test Grade: 2")
-        elif test_result < 30:
-            print("Final Test Grade: 1")
-        print("\n")
-        input(Fore.GREEN + "Press [ENTER] to go back to the main menu")
-        print(Style.RESET_ALL)
-        os.system("clear")
+    title()
+    stud_name = input("Student Name: ")
+    max_score = int(input("Maximum Test Score: "))
+    stud_score = int(input("Student Score: "))
+    while stud_score > max_score:
+        print("The student score cannot be above the maximum score.")
+        max_score = int(input("Maximum Test Score: "))
+        stud_score = int(input("Student Score: "))
+    test_result = round((stud_score / max_score) * 100, 1)
+    print("Final Percentage of " + stud_name + ": " + str(test_result) + "%")
+    if test_result >= 90:
+        print("Final Test Grade: 8")
+    elif test_result >= 80:
+        print("Final Test Grade 7")
+    elif test_result >= 70:
+        print("Final Test Grade: 6")
+    elif test_result >= 60:
+        print("Final Test Grade: 5")
+    elif test_result >= 50:
+        print("Final Test Grade: 4")
+    elif test_result >= 40:
+        print("Final Test Grade: 3")
+    elif test_result >= 30:
+        print("Final Test Grade: 2")
+    elif test_result < 30:
+        print("Final Test Grade: 1")
+    input(Fore.GREEN + "Press [ENTER] to go back to the main menu" + Style.RESET_ALL)
+    os.system("clear")
+
         
 
 # Function created in order to let the client use myp assessment grading section
