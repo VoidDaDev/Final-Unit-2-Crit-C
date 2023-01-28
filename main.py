@@ -27,28 +27,17 @@ def title():
 
 # Login function created in order for the user to connect onto the program,
 # There is a loop that keep asking for the credentials if they are wrong.
+
 def login_menu():
     title()
-    while True:
-        user_name = input(Fore.GREEN + "Username: ")
-        if user_name.isalpha():
-            break
-        else:
-            print(Back.RED + "Only input letters")
-    while True:
-        pass_word = input(Fore.GREEN + "Password: ")
-        if pass_word.isalpha():
-            break
-        else:
-            print(Back.RED + "Only input letters")
-
+    user_name = input(Fore.GREEN + "Username: ")
+    pass_word = input(Fore.GREEN + "Password: ")
     while user_name != username or pass_word != password:
         print(Fore.RED + "Wrong Login Credentials.")
         user_name = input(Fore.GREEN + "Username: ")
         pass_word = input(Fore.GREEN + "Password: ")
     os.system("clear")
     main_menu()
-
 # Function created to check if user input is only containing positive integers
 def checkint(question):
     while True:
